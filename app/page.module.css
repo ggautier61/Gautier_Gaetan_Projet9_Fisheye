@@ -1,0 +1,131 @@
+.main {
+  min-height: 100vh;
+  padding: 20px 40px 60px;
+}
+
+/* HEADER */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 50px;
+  padding-left: 100px;
+  padding-top: 42px;
+  padding-right: 100px;
+
+}
+
+.logo {
+
+}
+
+
+.header h1 {
+  color: #901c1c;
+  font-size: 24px;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* PHOTOGRAPHERS */
+
+.photographers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 80px;
+  row-gap: 55px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.card {
+  text-align: center;
+  cursor: pointer;
+}
+
+.photo {
+  width: 200px;
+  height: 200px;
+  object-fit: none;
+  border-radius: 50%;
+}
+
+.card h2 {
+  /* margin: 10px 0 2px;
+  color: #d3573c;
+  font-size: 18px;
+  font-weight: 400; */
+    font-family: DM Sans;
+    font-weight: 400;
+    font-size: 36px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    color: #D3573C;
+;
+
+}
+
+.location {
+    font-family: DM Sans;
+    font-weight: 400;
+    font-size: 13px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    color: #901C1C;
+
+
+}
+
+.tagline {
+  margin: 4px 0 0;
+  color: #000;
+  font-size: 9px;
+}
+
+.price {
+  margin: 2px 0 0;
+  color: #757575;
+  font-size: 9px;
+}
+
+/* TABLET */
+
+@media (max-width: 900px) {
+  .photographers {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 40px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .main {
+    padding: 20px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .header h1 {
+    font-size: 22px;
+  }
+
+  .photographers {
+    grid-template-columns: 1fr;
+    row-gap: 45px;
+  }
+
+  .photo {
+    width: 150px;
+    height: 150px;
+  }
+}
