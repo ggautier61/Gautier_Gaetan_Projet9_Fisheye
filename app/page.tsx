@@ -54,9 +54,9 @@ const photographers = [
 
 export default function Home() {
   return (
-    <div style={{ maxWidth: "1440px"}}>
+    <div style={{ maxWidth: "1440px", width: "1440px"}}>
       <header className={styles.header}>
-        <div className={styles.logo}>
+        <div>
           <Image
               src="/Logo_Fisheye.png"
               alt="Logo Fisheye"

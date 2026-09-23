@@ -18,7 +18,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="fr"
       className={`${dmSans.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col items-center">{children}</body>
+      <body className="min-h-full">{children}</body>
     </html>
   );
 }

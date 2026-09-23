@@ -16,16 +16,18 @@
 
 }
 
-.logo {
 
-}
 
 
 .header h1 {
-  color: #901c1c;
-  font-size: 24px;
-  font-weight: 400;
-  margin: 0;
+    color: #901c1c;
+    margin: 0;
+    font-family: DM Sans;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 100%;
+    letter-spacing: 0%;
+
 }
 
 /* PHOTOGRAPHERS */
@@ -35,8 +37,8 @@
   grid-template-columns: repeat(3, 1fr);
   column-gap: 80px;
   row-gap: 55px;
-  max-width: 1100px;
-  margin: 0 auto;
+  margin: 0;
+  width: 100%;
 }
 
 .card {
@@ -52,10 +54,9 @@
 }
 
 .card h2 {
-  /* margin: 10px 0 2px;
-  color: #d3573c;
-  font-size: 18px;
-  font-weight: 400; */
+    margin: 0;
+    margin-top: 20px;
+    margin-bottom: 7px;
     font-family: DM Sans;
     font-weight: 400;
     font-size: 36px;
@@ -69,6 +70,8 @@
 }
 
 .location {
+    margin: 0;
+    margin-bottom: 3px;
     font-family: DM Sans;
     font-weight: 400;
     font-size: 13px;
@@ -82,15 +85,27 @@
 }
 
 .tagline {
-  margin: 4px 0 0;
-  color: #000;
-  font-size: 9px;
+    font-family: DM Sans;
+    font-weight: 400;
+    font-size: 10px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    margin: 0;
+    margin-bottom: 3px;
 }
 
 .price {
-  margin: 2px 0 0;
-  color: #757575;
-  font-size: 9px;
+    font-family: DM Sans;
+    font-weight: 400;
+    font-size: 9px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    color: #757575;
+
 }
 
 /* TABLET */
