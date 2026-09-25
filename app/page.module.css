@@ -10,10 +10,7 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 50px;
-  padding-left: 100px;
   padding-top: 42px;
-  padding-right: 100px;
-
 }
 
 
@@ -75,7 +72,6 @@
     font-family: DM Sans;
     font-weight: 400;
     font-size: 13px;
-    leading-trim: NONE;
     line-height: 100%;
     letter-spacing: 0%;
     text-align: center;
@@ -142,5 +138,347 @@
   .photo {
     width: 150px;
     height: 150px;
+  }
+}
+
+/* =========================================================
+   PROFIL PHOTOGRAPHE
+   ========================================================= */
+
+.profileContainer {
+  width: 100%;
+  /* max-width: 1040px; */
+  
+  /* padding: 0 50px; */
+}
+
+.profile {
+  min-height: 174px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 50px 50px;
+
+  background: var(--color-light-gray);
+}
+
+.profileLeft {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  /* width: 100%; */
+}
+
+.profileInformation {
+  min-width: 230px;
+}
+
+.profileName {
+  margin: 0;
+
+  color: var(--color-orange);
+
+  font-size: 64px;
+  font-weight: 400;
+  font-family: DM Sans;
+  line-height: 100%;
+  letter-spacing: 0%;
+
+}
+
+.profileDescription {
+  margin-top: 2px;
+
+  padding: 7px 8px;
+
+  /* border: 1px solid var(--color-turquoise); */
+}
+
+.profileLocation {
+  margin: 0;
+
+  color: var(--color-red);
+
+  font-family: DM Sans;
+  line-height: 100%;
+  letter-spacing: 0%;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.profileTagline {
+  margin: 8px 0 0;
+
+  color: #666666;
+
+  font-family: DM Sans;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+
+/* =========================================================
+   BOUTON CONTACT
+   ========================================================= */
+
+.contactButton {
+  padding: 16px 8px;
+  height: 69px;
+  width: 170px;
+
+  border: 0;
+  border-radius: 5px;
+
+  background: var(--color-red);
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+  font-family: DM Sans;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.contactButton:hover {
+  background: var(--color-red-dark);
+}
+
+.contactButton:active {
+  transform: translateY(1px);
+}
+
+/* =========================================================
+   PHOTO DE PROFIL
+   ========================================================= */
+
+.profilePicture {
+  position: relative;
+
+  width: 200px;
+  height: 200px;
+
+  margin-right: 0;
+
+  overflow: hidden;
+
+  border-radius: 50%;
+}
+
+.profilePicture img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+/* =========================================================
+   TRI
+   ========================================================= */
+
+.sortContainer {
+  width: 100%;
+  max-width: 1040px;
+
+  margin: 10px 0 23px;
+  display: flex;
+  align-items: center;
+}
+
+.sortLabel {
+  margin-right: 25px;
+
+  color: black;
+
+  font-family: DM Sans;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0%;
+
+}
+
+.sortButton {
+  width: 170px;
+  /* height: 69px;; */
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 12px 20px;
+  border: 0;
+  background: var(--color-red);
+  color: #ffffff;
+
+  font-family: DM Sans;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  /* border-bottom: 1px solid white; */
+
+  cursor: pointer;
+}
+
+/* =========================================================
+   GALERIE
+   ========================================================= */
+
+.galleryContainer {
+  width: 100%;
+  margin: 0;
+  padding: 20px 0;
+}
+
+.gallery {
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  column-gap: 52px;
+  row-gap: 20px;
+}
+
+/* =========================================================
+   PHOTO
+   ========================================================= */
+
+.photoCard {
+  width: 350px;
+  height: 350px;
+}
+
+.photoImage {
+  position: relative;
+
+  width: 100%;
+  height: 300px;
+
+  aspect-ratio: 1 / 1;
+
+  overflow: hidden;
+
+  border-radius: 5px;
+}
+
+.photoImage img {
+  width: 100%;
+  display: block;
+
+  object-fit: cover;
+
+  transition: transform 0.3s ease;
+}
+
+.photoCard:hover .photoImage img {
+  transform: scale(1.02);
+}
+
+/* =========================================================
+   INFORMATIONS PHOTO
+   ========================================================= */
+
+.photoInformation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 10px 0;
+}
+
+.photoTitle {
+  margin: 0;
+
+  color: var(--color-red);
+
+  font-family: DM Sans;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+
+.photoLikes {
+  color: var(--color-red);
+
+  font-family: DM Sans;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: right;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .profile {
+    min-height: auto;
+
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 24px;
+  }
+
+  .profileLeft {
+    width: 100%;
+
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 20px;
+  }
+
+  .profilePicture {
+    align-self: center;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    column-gap: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profileContainer,
+  .sortContainer,
+  .galleryContainer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .profile {
+    padding: 20px;
+  }
+
+  .profileName {
+    font-size: 30px;
+  }
+
+  .gallery {
+    grid-template-columns: 1fr;
+
+    gap: 24px;
+  }
+
+  .sortContainer {
+    padding-top: 16px;
   }
 }
