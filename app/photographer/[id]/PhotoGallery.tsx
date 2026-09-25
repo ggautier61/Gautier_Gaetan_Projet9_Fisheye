@@ -2,10 +2,10 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import styles from "../page.module.css";
+import styles from "../../page.module.css";
 
 export type Photo = {
-  id: number;
+  id: string;
   image: string;
   title: string;
   likes: number;
@@ -16,8 +16,8 @@ type SortBy = "popularite" | "date" | "titre";
 
 const SORT_OPTIONS: { value: SortBy; label: string }[] = [
   { value: "popularite", label: "Popularité" },
-  { value: "date", label: "Date" },
-  { value: "titre", label: "Titre" },
+  { value: "date",        label: "Date" },
+  { value: "titre",       label: "Titre" },
 ];
 
 export default function PhotoGallery({ photos }: { photos: Photo[] }) {
@@ -95,7 +95,7 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
               {otherOptions.map((option) => (
                 <div key={option.value}>
                   <button
-                    
+                     
                     type="button"
                     role="menuitem"
                     onClick={() => handleSelect(option.value)}

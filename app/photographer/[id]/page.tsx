@@ -1,50 +1,53 @@
 import Image from "next/image";
-import styles from "../page.module.css";
-import PhotoGallery from "./PhotoGallery";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import styles from "../../page.module.css";
+import photographers from "../../src/datas/photographer.json";
+import media from "../../src/datas/media.json";
+import PhotoGallery, { type Photo } from "./PhotoGallery";
 
-const photos = [
-  {
-    id: 1,
-    image: "/assets/Animals_Majesty.jpg",
-    title: "Arc-en-ciel",
-    likes: 11,
-    date: "2024-03-10",
-  },
-  {
-    id: 2,
-    image: "/assets/Animals_Rainbow.jpg",
-    title: "Solitude",
-    likes: 12,
-    date: "2024-06-22",
-  },
-  {
-    id: 3,
-    image: "/assets/Architecture_Connected_Curves.jpg",
-    title: "Mariage à la mer",
-    likes: 12,
-    date: "2025-01-18",
-  },
-  {
-    id: 4,
-    image: "/assets/Architecture_Corner_Room.jpg",
-    title: "Portrait",
-    likes: 8,
-    date: "2024-11-02",
-  },
-  {
-    id: 5,
-    image: "/assets/Architecture_Corner_Room.jpg",
-    title: "Moment à deux",
-    likes: 10,
-    date: "2025-04-30",
-  },
-];
+type MediaEntry = {
+  photographerId: number;
+  title: string;
+  image?: string;
+  video?: string;
+  likes: number;
+  date: string;
+  price: number;
+};
 
-export default function PhotographerPage() {
+const allMedia = media as MediaEntry[];
+
+export function generateStaticParams() {
+  return photographers.map((photographer) => ({ id: String(photographer.id) }));
+}
+
+export default async function PhotographerPage(
+  props: PageProps<"/photographer/[id]">
+) {
+  const { id } = await props.params;
+
+  const photographerId = Number(id);
+  const photographer = photographers.find(
+    (entry) => entry.id === photographerId
+  );
+
+  if (!photographer) notFound();
+
+  const photos: Photo[] = allMedia
+    .filter((entry) => entry.photographerId === photographerId && entry.image)
+    .map((entry, index) => ({
+      id: `${entry.photographerId}-${index}`,
+      image: `/assets/${entry.image}`,
+      title: entry.title,
+      likes: entry.likes,
+      date: entry.date,
+    }));
+
   return (
     <div style={{ maxWidth: "1440px", width: "1440px", paddingLeft: "100px", paddingRight: "100px" }}>
       <header className={styles.header}>
-        <div>
+        <Link href="/" aria-label="Retour à l'accueil">
           <Image
             src="/Logo_Fisheye.png"
             alt="Logo Fisheye"
@@ -52,7 +55,7 @@ export default function PhotographerPage() {
             height={50}
             className={styles.logo}
           />
-        </div>
+        </Link>
       </header>
 
   {/* ------------------------------------------------------- 
@@ -65,16 +68,16 @@ export default function PhotographerPage() {
 
             <div className={styles.profileInformation}>
               <h1 className={styles.profileName}>
-                Mimi Keel
+                {photographer.name}
               </h1>
 
               <div className={styles.profileDescription}>
                 <p className={styles.profileLocation}>
-                  London, UK
+                  {photographer.city}, {photographer.country}
                 </p>
 
                 <p className={styles.profileTagline}>
-                  Voir le beau dans le quotidien
+                  {photographer.tagline}
                 </p>
               </div>
             </div>
@@ -90,8 +93,8 @@ export default function PhotographerPage() {
 
           <div className={styles.profilePicture}>
             <Image
-              src="/assets/MimiKeel.jpg"
-              alt="Mimi Keel"  
+              src={`/assets/${photographer.portrait}`}
+              alt={photographer.name}  
               width={200}
               height={200}            
             />
