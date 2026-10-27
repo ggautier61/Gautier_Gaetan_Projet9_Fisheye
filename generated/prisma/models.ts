@@ -8,6 +8,6 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/Photographer'
-export type * from './models/Media'
-export type * from './commonInputTypes'
+export type * from './models/Photographer.ts'
+export type * from './models/Media.ts'
+export type * from './commonInputTypes.ts'

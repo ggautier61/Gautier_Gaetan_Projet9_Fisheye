@@ -12,7 +12,7 @@
  */
 
 import * as runtime from "@prisma/client/runtime/client"
-import type * as Prisma from "./prismaNamespace"
+import type * as Prisma from "./prismaNamespace.ts"
 
 
 const config: runtime.GetPrismaClientConfig = {
@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.10.0",
   "engineVersion": "0edf323efd1d98336f3f0a68684b56f689b900d3",
   "activeProvider": "sqlite",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n}\n\nmodel Photographer {\n  id       Int     @id @default(autoincrement())\n  name     String\n  city     String\n  country  String\n  tagline  String\n  price    Int\n  portrait String\n  medias   Media[]\n}\n\nmodel Media {\n  id             Int          @id @default(autoincrement())\n  photographer   Photographer @relation(fields: [photographerId], references: [id])\n  photographerId Int\n  title          String\n  image          String?\n  video          String?\n  likes          Int\n  date           String\n  price          Int\n}\n",
+  "inlineSchema": "generator client {\n  provider            = \"prisma-client\"\n  output              = \"../generated/prisma\"\n  // Exporte les imports relatifs avec l'extension \".ts\" afin que le client\n  // reste importable par Node (seed) en plus du bundler Next.\n  importFileExtension = \"ts\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n}\n\nmodel Photographer {\n  id       Int     @id @default(autoincrement())\n  name     String\n  city     String\n  country  String\n  tagline  String\n  price    Int\n  portrait String\n  medias   Media[]\n}\n\nmodel Media {\n  id             Int          @id @default(autoincrement())\n  photographer   Photographer @relation(fields: [photographerId], references: [id])\n  photographerId Int\n  title          String\n  image          String?\n  video          String?\n  likes          Int\n  date           String\n  price          Int\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},

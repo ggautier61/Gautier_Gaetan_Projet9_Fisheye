@@ -1,6 +1,9 @@
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
+  // Exporte les imports relatifs avec l'extension ".ts" afin que le client
+  // reste importable par Node (seed) en plus du bundler Next.
+  importFileExtension = "ts"
 }
 
 datasource db {

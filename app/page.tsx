@@ -1,58 +1,13 @@
 import Image from "next/image";
+import Link from "next/link";
+import { getAllPhotographers } from "./lib/photographers";
 import styles from "./page.module.css";
 
-const photographers = [
-  {
-    id: 1,
-    name: "Mimi Keel",
-    city: "London, UK",
-    tagline: "Voir le beau dans le quotidien",
-    price: "400€/jour",
-    image: "/assets/MimiKeel.jpg",
-  },
-  {
-    id: 2,
-    name: "Ellie-Rose Wilkens",
-    city: "Paris, France",
-    tagline: "Travaille sur des compositions complexes",
-    price: "250€/jour",
-    image: "/assets/EllieRoseWilkens.jpg",
-  },
-  {
-    id: 3,
-    name: "Tracy Galindo",
-    city: "Montreal, Canada",
-    tagline: "Photographe freelance",
-    price: "500€/jour",
-    image: "/assets/TracyGalindo.jpg",
-  },
-  {
-    id: 4,
-    name: "Nabeel Bradford",
-    city: "Mexico City, Mexico",
-    tagline: "Je vais toujours de l'avant",
-    price: "350€/jour",
-    image: "/assets/NabeelBradford.jpg",
-  },
-  {
-    id: 5,
-    name: "Rhode Dubois",
-    city: "Barcelona, Spain",
-    tagline: "Créatrice de souvenirs",
-    price: "375€/jour",
-    image: "/assets/RhodeDubois.jpg",
-  },
-  {
-    id: 6,
-    name: "Marcel Nikolic",
-    city: "Berlin, Germany",
-    tagline: "Toujours à la recherche de LA photo",
-    price: "300€/jour",
-    image: "/assets/MarcelNikolic.jpg",
-  },
-];
+export const dynamic = "force-dynamic";
 
-export default function Home() {
+export default async function Home() {
+  const photographers = await getAllPhotographers();
+
   return (
     <div style={{ maxWidth: "1440px", width: "1440px"}}>
       <header className={styles.header}>
@@ -73,29 +28,35 @@ export default function Home() {
 
         <section className={styles.photographers}>
           {photographers.map((photographer) => (
-            <article key={photographer.id} className={styles.card}>
-              <Image
-                src={photographer.image}
-                alt={photographer.name}
-                width={200}
-                height={200}
-                className={styles.photo}
-              />
+            <Link
+              key={photographer.id}
+              href={`/photographer/${photographer.id}`}
+              className={styles.cardLink}
+            >
+              <article className={styles.card}>
+                <Image
+                  src={`/assets/${photographer.portrait}`}
+                  alt={photographer.name}
+                  width={200}
+                  height={200}
+                  className={styles.photo}
+                />
 
-              <h2>{photographer.name}</h2>
+                <h2>{photographer.name}</h2>
 
-              <p className={styles.location}>
-                {photographer.city}
-              </p>
+                <p className={styles.location}>
+                  {photographer.city}, {photographer.country}
+                </p>
 
-              <p className={styles.tagline}>
-                {photographer.tagline}
-              </p>
+                <p className={styles.tagline}>
+                  {photographer.tagline}
+                </p>
 
-              <p className={styles.price}>
-                {photographer.price}
-              </p>
-            </article>
+                <p className={styles.price}>
+                  {photographer.price}€/jour
+                </p>
+              </article>
+            </Link>
           ))}
         </section>
       </main>
