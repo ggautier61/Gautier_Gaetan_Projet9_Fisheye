@@ -30,6 +30,7 @@
 
 /* Conteneur principal */
 .photo-viewer {
+  position: relative;
   width: min(90vw, 1050px);
   height: min(90vh, 900px);
   margin: 0 auto;
@@ -60,11 +61,11 @@
 .photo-figure img {
   display: block;
   max-width: 100%;
-  max-height: calc(100% - 30px);
+  max-height: calc(100% - 40px);
   width: auto;
-  height: 100%;
+  height: auto;
   border-radius: 2px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 /* Légende */
