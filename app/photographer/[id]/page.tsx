@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { getPhotographerById } from "../../lib/photographers";
 import styles from "../../page.module.css";
 import PhotoGallery, { type Photo } from "./PhotoGallery";
-
 export const dynamic = "force-dynamic";
 
 export default async function PhotographerPage(
