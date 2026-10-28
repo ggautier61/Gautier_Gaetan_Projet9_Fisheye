@@ -1,27 +1,29 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getAllPhotographers } from "./lib/photographers";
 import styles from "./page.module.css";
-import photographers from "./src/datas/photographer.json";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const photographers = await getAllPhotographers();
+
   return (
-    <div style={{ maxWidth: "1440px", width: "1440px"}}>
+    <div style={{ maxWidth: "1440px", width: "1440px" }}>
       <header className={styles.header}>
         <div>
           <Image
-              src="/Logo_Fisheye.png"
-              alt="Logo Fisheye"
-              width={200}
-              height={50}
-              className={styles.logo}
-            />
+            src="/Logo_Fisheye.png"
+            alt="Logo Fisheye"
+            width={200}
+            height={50}
+            className={styles.logo}
+          />
         </div>
 
         <h1>Nos photographes</h1>
       </header>
       <main className={styles.main}>
-        
-
         <section className={styles.photographers}>
           {photographers.map((photographer) => (
             <Link
@@ -56,7 +58,7 @@ export default function Home() {
           ))}
         </section>
       </main>
-
     </div>
   );
 }
+

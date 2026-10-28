@@ -1,26 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getPhotographerById } from "../../lib/photographers";
 import styles from "../../page.module.css";
-import photographers from "../../src/datas/photographer.json";
-import media from "../../src/datas/media.json";
 import PhotoGallery, { type Photo } from "./PhotoGallery";
 
-type MediaEntry = {
-  photographerId: number;
-  title: string;
-  image?: string;
-  video?: string;
-  likes: number;
-  date: string;
-  price: number;
-};
-
-const allMedia = media as MediaEntry[];
-
-export function generateStaticParams() {
-  return photographers.map((photographer) => ({ id: String(photographer.id) }));
-}
+export const dynamic = "force-dynamic";
 
 export default async function PhotographerPage(
   props: PageProps<"/photographer/[id]">
@@ -28,20 +13,20 @@ export default async function PhotographerPage(
   const { id } = await props.params;
 
   const photographerId = Number(id);
-  const photographer = photographers.find(
-    (entry) => entry.id === photographerId
-  );
+  const photographer = Number.isInteger(photographerId)
+    ? await getPhotographerById(photographerId)
+    : null;
 
   if (!photographer) notFound();
 
-  const photos: Photo[] = allMedia
-    .filter((entry) => entry.photographerId === photographerId && entry.image)
-    .map((entry, index) => ({
-      id: `${entry.photographerId}-${index}`,
-      image: `/assets/${entry.image}`,
-      title: entry.title,
-      likes: entry.likes,
-      date: entry.date,
+  const photos: Photo[] = photographer.medias
+    .filter((media) => media.image)
+    .map((media) => ({
+      id: media.id,
+      image: `/assets/${media.image}`,
+      title: media.title,
+      likes: media.likes,
+      date: media.date,
     }));
 
   return (

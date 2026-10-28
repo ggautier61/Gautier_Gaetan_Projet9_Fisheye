@@ -3,9 +3,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import styles from "../../page.module.css";
+import LightboxModal from "./LightboxModal";
 
 export type Photo = {
-  id: string;
+  id: number;
   image: string;
   title: string;
   likes: number;
@@ -24,6 +25,8 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
   const [sortBy, setSortBy] = useState<SortBy>("popularite");
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -119,7 +122,24 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
           {sortedPhotos.map((photo) => (
             <article key={photo.id} className={styles.photoCard}>
               {/* Image */}
-              <div className={styles.photoImage}>
+              <div
+                className={styles.photoImage}
+                onClick={() => {
+                  const index = sortedPhotos.findIndex((p) => p.id === photo.id);
+                  setLightboxIndex(index >= 0 ? index : 0);
+                  setLightboxOpen(true);
+                }}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    const index = sortedPhotos.findIndex((p) => p.id === photo.id);
+                    setLightboxIndex(index >= 0 ? index : 0);
+                    setLightboxOpen(true);
+                  }
+                }}
+              >
                 <Image
                   src={photo.image}
                   alt={photo.title}
@@ -138,6 +158,15 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
           ))}
         </div>
       </section>
+
+      <LightboxModal
+        isOpen={lightboxOpen}
+        photos={sortedPhotos}
+        currentIndex={lightboxIndex}
+        onClose={() => {
+          setLightboxOpen(false);
+        }}
+      />
     </>
   );
 }
