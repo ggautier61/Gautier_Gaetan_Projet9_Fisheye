@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getPhotographerById } from "../../lib/photographers";
 import styles from "../../page.module.css";
 import PhotoGallery, { type Photo } from "./PhotoGallery";
+import ContactSection from "./ContactSection";
 
 export const dynamic = "force-dynamic";
 
@@ -71,9 +72,7 @@ export default async function PhotographerPage(
 
           </div>
           <div>
-            <button className={styles.contactButton}>
-              Contactez-moi
-            </button>
+            <ContactSection photographerName={photographer.name} />
           </div>
 
           <div className={styles.profilePicture}>
