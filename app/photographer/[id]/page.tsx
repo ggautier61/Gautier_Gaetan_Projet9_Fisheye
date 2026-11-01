@@ -21,7 +21,6 @@ export default async function PhotographerPage(
   if (!photographer) notFound();
 
   const photos: Photo[] = photographer.medias
-    .filter((media) => media.image)
     .map((media) => ({
       id: media.id,
       image: `/assets/${media.image}`,
