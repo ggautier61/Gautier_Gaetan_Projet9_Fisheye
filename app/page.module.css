@@ -257,7 +257,8 @@
 }
 
 .contactButton:hover {
-  background: var(--color-red-dark);
+  background: var(--color-orange);
+  color: black;
 }
 
 .contactButton:active {
