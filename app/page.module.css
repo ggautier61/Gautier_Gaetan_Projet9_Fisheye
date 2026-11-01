@@ -67,7 +67,7 @@
     line-height: 100%;
     letter-spacing: 0%;
     text-align: center;
-    color: #D3573C;
+    color: var(--color-orange);
 ;
 
 }
@@ -81,7 +81,7 @@
     line-height: 100%;
     letter-spacing: 0%;
     text-align: center;
-    color: #901C1C;
+    color: var(--color-red);
 
 
 }
