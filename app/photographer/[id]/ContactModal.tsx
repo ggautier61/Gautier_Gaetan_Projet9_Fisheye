@@ -31,9 +31,16 @@ export default function ContactModal({
     };
   }, [isOpen, onClose]);
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-  }
+  function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
+  event.preventDefault();
+  const formData = new FormData(event.currentTarget);
+  console.log({
+    Prénom: formData.get("firstname"),
+    Nom: formData.get("lastname"),
+    Email: formData.get("email"),
+    Message: formData.get("message"),
+  });
+}
 
   if (!isOpen) {
     return null;
