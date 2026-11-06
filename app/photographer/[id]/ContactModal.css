@@ -24,11 +24,11 @@
   position: relative;
   z-index: 1;
   width: min(90vw, 669px);
-  height: 900px;
+  /* height: 900px; */
   padding: 35px;
   padding-bottom: 38px;
   box-sizing: content-box;
-  border-radius: 5px;
+  border-radius: 16px;
   font-family: DM Sans;
   background-color: var(--color-salmon);
 }

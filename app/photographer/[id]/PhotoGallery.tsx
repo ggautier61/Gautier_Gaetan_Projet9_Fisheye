@@ -4,6 +4,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import styles from "../../page.module.css";
 import LightboxModal from "./LightboxModal";
+import fs from "fs";
+import path from "path";
+import PhotoImage from "./PhotoImage";
 
 export type Photo = {
   id: number;
@@ -63,6 +66,12 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
     SORT_OPTIONS[0].label;
 
   const otherOptions = SORT_OPTIONS.filter((option) => option.value !== sortBy);
+
+
+
+  
+
+
 
   return (
     <>
@@ -140,12 +149,27 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
                   }
                 }}
               >
-                <Image
+                <PhotoImage photo={photo} sortedPhotos={sortedPhotos}/>
+                {/* <Image
                   src={photo.image}
                   alt={photo.title}
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
-                />
+                   onError={(e) => {
+                      e.currentTarget.src = getRandomImage();
+                    }}
+                /> */}
+
+                {/* <Image
+                  src={imageSrc}
+                  alt={photo.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  onError={() => {
+                    setImageSrc(fallbackImage);
+                  }}
+                /> */}
+
               </div>
 
               {/* Informations */}
