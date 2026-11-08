@@ -150,26 +150,7 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
                 }}
               >
                 <PhotoImage photo={photo} sortedPhotos={sortedPhotos}/>
-                {/* <Image
-                  src={photo.image}
-                  alt={photo.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                   onError={(e) => {
-                      e.currentTarget.src = getRandomImage();
-                    }}
-                /> */}
-
-                {/* <Image
-                  src={imageSrc}
-                  alt={photo.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  onError={() => {
-                    setImageSrc(fallbackImage);
-                  }}
-                /> */}
-
+                
               </div>
 
               {/* Informations */}

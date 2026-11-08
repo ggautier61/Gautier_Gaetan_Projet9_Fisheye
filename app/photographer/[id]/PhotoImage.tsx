@@ -12,20 +12,22 @@ interface PhotoImageProps {
   sortedPhotos: Photo[]
 }
 
-function getRandomImage(sortedPhotos: Photo[]) {
-    if (!sortedPhotos) {
-      return "/Logo_Fisheye.png";
+function getRandomImage(sortedPhotos: Photo[], currentImage: string) {
+    const candidates = sortedPhotos.filter(
+        (item) =>  item.image !== currentImage && !item.image.endsWith("/null"))
+        
+    if (candidates.length == 0) {
+        return "/Logo_Fisheye.png"
     }
 
-    return sortedPhotos[
-      Math.floor(Math.random() * sortedPhotos.length)
+
+    return candidates[
+      Math.floor(Math.random() * candidates.length)
     ].image;
   };
 
 export default function PhotoImage({ photo, sortedPhotos }: PhotoImageProps) {
   const [imageSrc, setImageSrc] = useState(photo.image);
-
-  const randomPhoto = getRandomImage(sortedPhotos);
 
   return (
     <Image
@@ -34,7 +36,7 @@ export default function PhotoImage({ photo, sortedPhotos }: PhotoImageProps) {
       fill
       sizes="(max-width: 768px) 100vw, 33vw"
       onError={() => {
-        setImageSrc(randomPhoto);
+        setImageSrc(getRandomImage(sortedPhotos, imageSrc));
       }}
     />
   );
