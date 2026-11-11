@@ -164,14 +164,15 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
         </div>
       </section>
 
-      <LightboxModal
-        isOpen={lightboxOpen}
-        photos={sortedPhotos}
-        currentIndex={lightboxIndex}
-        onClose={() => {
-          setLightboxOpen(false);
-        }}
-      />
+      {lightboxOpen && (
+        <LightboxModal
+          photos={sortedPhotos}
+          currentIndex={lightboxIndex}
+          onClose={() => {
+            setLightboxOpen(false);
+          }}
+        />
+      )}
     </>
   );
 }

@@ -5,25 +5,27 @@ import type { Photo } from "./PhotoGallery";
 import "./LightboxModal.css";
 
 type LightboxModalProps = {
-  isOpen: boolean;
   onClose: () => void;
   photos: Photo[];
   currentIndex: number;
 };
 
 export default function LightboxModal({
-  isOpen,
   onClose,
   photos,
   currentIndex,
 }: LightboxModalProps) {
   const [index, setIndex] = useState(currentIndex);
-
-  useEffect(() => {
-    if (isOpen) {
-      setIndex(currentIndex);
-    }
-  }, [isOpen, currentIndex]);
+  const [fallback, setFallback] = useState<{ id: number; src: string } | null>(
+    null
+  );
+  const safeIndex =
+    photos.length > 0
+      ? ((index % photos.length) + photos.length) % photos.length
+      : 0;
+  const photo = photos[safeIndex];
+  const imageSrc =
+    photo && fallback?.id === photo.id ? fallback.src : photo?.image ?? "";
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -32,30 +34,25 @@ export default function LightboxModal({
         return;
       }
       if (event.key === "ArrowLeft") {
-        goToPrev();
+        setIndex((prev) => (prev - 1 + photos.length) % photos.length);
         return;
       }
       if (event.key === "ArrowRight") {
-        goToNext();
+        setIndex((prev) => (prev + 1) % photos.length);
         return;
       }
     }
 
-    if (isOpen) {
-      document.addEventListener("keydown", handleKeyDown);
-    }
+    document.addEventListener("keydown", handleKeyDown);
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isOpen, index, photos]);
+  }, [onClose, photos.length]);
 
-  if (!isOpen || photos.length === 0) {
+  if (!photo) {
     return null;
   }
-
-  const safeIndex = ((index % photos.length) + photos.length) % photos.length;
-  const photo = photos[safeIndex];
 
   function goToPrev() {
     setIndex((prev) => (prev - 1 + photos.length) % photos.length);
@@ -65,41 +62,67 @@ export default function LightboxModal({
     setIndex((prev) => (prev + 1) % photos.length);
   }
 
+  function getRandomImage(sortedPhotos: Photo[], currentImage: string) {
+    const candidates = sortedPhotos.filter(
+        (item) =>  item.image !== currentImage && !item.image.endsWith("/null"))
+        
+    if (candidates.length == 0) {
+        return "/Logo_Fisheye.png"
+    }
+
+
+    return candidates[
+      Math.floor(Math.random() * candidates.length)
+    ].image;
+  };
+
   return (
     <div id="lightbox-modal">
       <div onClick={onClose} aria-hidden="true" />
       <div role="dialog" aria-modal="true">
         <div className="photo-viewer">
           <figure className="photo-figure">
-            <button
-            type="button"
-            className="close-button"
-            onClick={onClose}
-            aria-label="Fermer"
-            >
-              &times;
-            </button>
+            <div className="figure-panel-left">
+              <button
+                type="button"
+                className="nav-button prev"
+                onClick={goToPrev}
+                aria-label="Photo précédente"
+              >
+                &#10094;
+              </button>
+            </div>
 
-            <button
+            <div className="figure-panel-image">
+              <img src={imageSrc} alt={photo.title}
+                  onError={() => {
+                        setFallback({
+                          id: photo.id,
+                          src: getRandomImage(photos, photo.image),
+                        });
+                      }} />
+              <figcaption>{photo.title}</figcaption>
+            </div>
+            <div className="figure-panel-right">
+
+              <button
               type="button"
-              className="nav-button prev"
-              onClick={goToPrev}
-              aria-label="Photo précédente"
-            >
-              &#10094;
-            </button>
+              className="close-button"
+              onClick={onClose}
+              aria-label="Fermer"
+              >
+                &times;
+              </button>
 
-            <img src={photo.image} alt={photo.title} />
-            <figcaption>{photo.title}</figcaption>
-
-            <button
-              type="button"
-              className="nav-button next"
-              onClick={goToNext}
-              aria-label="Photo suivante"
-            >
-              &#10095;
-            </button>
+              <button
+                type="button"
+                className="nav-button next"
+                onClick={goToNext}
+                aria-label="Photo suivante"
+              >
+                &#10095;
+              </button>
+            </div>
 
           </figure>
 
