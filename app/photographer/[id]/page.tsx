@@ -87,7 +87,7 @@ export default async function PhotographerPage(
       </section>
 
       {/* BARRE DE TRI + GALERIE */}
-      <PhotoGallery photos={photos} />
+      <PhotoGallery photos={photos} price={photographer.price} />
 
 
     </div>

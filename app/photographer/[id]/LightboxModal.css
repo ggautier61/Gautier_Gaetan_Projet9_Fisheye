@@ -31,7 +31,7 @@
 /* Conteneur principal */
 .photo-viewer {
   position: relative;
-  width: min(90vw, 1050px);
+  width: min(90vw, 1400px);
   height: min(90vh, 900px);
   padding: 62px 100px;
   box-sizing: border-box;
@@ -59,12 +59,13 @@
 /* Photo */
 .photo-figure img {
   display: block;
-  max-width: 100%;
-  max-height: 66vh;
-  min-height: 66vh;
+  /* max-width: 100%; */
+  /* max-height: 66vh; */
+  /* min-height: 66vh; */
   width: 100%;
   border-radius: 2px;
   object-fit: cover;
+  object-position: top center;  
 }
 
 /* Légende */
@@ -76,8 +77,16 @@
   line-height: 100%;
 }
 
-.figure-panel-left .figure-panel-right {
-      width: 100px;
+.figure-panel-left {
+  padding-right: 20px;
+}
+
+.figure-panel-right {
+  padding-left: 20px;
+}
+
+.figure-panel-left, .figure-panel-right {
+    width: 100px;
     height: 100%;
     position: relative;
     display: flex;
@@ -85,19 +94,21 @@
     align-items: center;
 }
 
-.figure-panel-left {
-    padding-right: 20px;
-}
-
-.figure-panel-right {
-    padding-left: 20px;
-}
-
 .figure-panel-image {
     display: flex;
     flex-direction: column;
     flex: 1;
     row-gap: 20px;
+    height: 100%;
+    width: 1242px;
+    overflow: hidden;
+}
+
+.figure-panel-container {
+  height: 900px;
+    width: 1242px;
+    overflow: hidden;
+    border: 1px solid red;
 }
 
 /* Boutons de navigation */

@@ -28,7 +28,7 @@
   padding: 35px;
   padding-bottom: 38px;
   box-sizing: content-box;
-  border-radius: 16px;
+  border-radius: 5px;
   font-family: DM Sans;
   background-color: var(--color-salmon);
 }
@@ -99,7 +99,7 @@
   margin-top: 8px;
   padding: 12px 24px;
   border: 0;
-  border-radius: 5px;
+  border-radius: 5px; 
   background: var(--color-red);
   color: #fff;
   font-family: inherit;

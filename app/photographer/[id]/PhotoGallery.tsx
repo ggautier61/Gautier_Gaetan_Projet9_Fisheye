@@ -7,6 +7,7 @@ import LightboxModal from "./LightboxModal";
 import fs from "fs";
 import path from "path";
 import PhotoImage from "./PhotoImage";
+import InfoBoxLikes from "./InfoBoxLikes";
 
 export type Photo = {
   id: number;
@@ -24,12 +25,21 @@ const SORT_OPTIONS: { value: SortBy; label: string }[] = [
   { value: "titre",       label: "Titre" },
 ];
 
-export default function PhotoGallery({ photos }: { photos: Photo[] }) {
+export default function PhotoGallery({
+  photos,
+  price,
+}: {
+  photos: Photo[];
+  price: number;
+}) {
   const [sortBy, setSortBy] = useState<SortBy>("popularite");
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [likesById, setLikesById] = useState<Record<number, number>>(() =>
+    Object.fromEntries(photos.map((photo) => [photo.id, photo.likes]))
+  );
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -61,11 +71,23 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
     setIsOpen(false);
   }
 
+  function handleLike(photoId: number) {
+    setLikesById((prev) => ({
+      ...prev,
+      [photoId]: (prev[photoId] ?? 0) + 1,
+    }));
+  }
+
   const currentLabel =
     SORT_OPTIONS.find((option) => option.value === sortBy)?.label ??
     SORT_OPTIONS[0].label;
 
   const otherOptions = SORT_OPTIONS.filter((option) => option.value !== sortBy);
+
+  const totalLikes = photos.reduce(
+    (sum, photo) => sum + (likesById[photo.id] ?? photo.likes),
+    0
+  );
 
 
 
@@ -157,7 +179,14 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
               <div className={styles.photoInformation}>
                 <h2 className={styles.photoTitle}>{photo.title}</h2>
 
-                <span className={styles.photoLikes}>{photo.likes} ♥</span>
+                <button
+                  type="button"
+                  className={styles.photoLikes}
+                  onClick={() => handleLike(photo.id)}
+                  aria-label={`Ajouter un like à ${photo.title}`}
+                >
+                  {likesById[photo.id] ?? photo.likes} ♥
+                </button>
               </div>
             </article>
           ))}
@@ -173,6 +202,8 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
           }}
         />
       )}
+
+      <InfoBoxLikes price={price} totalLikes={totalLikes} />
     </>
   );
 }

@@ -94,13 +94,16 @@ export default function LightboxModal({
             </div>
 
             <div className="figure-panel-image">
-              <img src={imageSrc} alt={photo.title}
-                  onError={() => {
-                        setFallback({
-                          id: photo.id,
-                          src: getRandomImage(photos, photo.image),
-                        });
-                      }} />
+              <div className="figure-panel-container">
+                <img src={imageSrc} alt={photo.title}
+                    onError={() => {
+                          setFallback({
+                            id: photo.id,
+                            src: getRandomImage(photos, photo.image),
+                          });
+                        }} />
+
+              </div>
               <figcaption>{photo.title}</figcaption>
             </div>
             <div className="figure-panel-right">

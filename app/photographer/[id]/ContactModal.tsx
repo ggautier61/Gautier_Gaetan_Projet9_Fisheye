@@ -40,6 +40,7 @@ export default function ContactModal({
     Email: formData.get("email"),
     Message: formData.get("message"),
   });
+  onClose()
 }
 
   if (!isOpen) {
@@ -106,9 +107,12 @@ export default function ContactModal({
             />
           </div>
 
-          <button type="submit" className="contact-submit">
-            Envoyer
-          </button>
+          <div className="w-full">
+            <button type="submit" className="contact-submit">
+              Envoyer
+            </button>
+
+          </div>
         </form>
       </div>
     </div>
