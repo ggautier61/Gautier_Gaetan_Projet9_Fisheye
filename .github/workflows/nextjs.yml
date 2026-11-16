@@ -80,7 +80,7 @@ jobs:
           find . -maxdepth 2 -name "next.config.*"
           cat next.config.ts
       - name: Build with Next.js
-        run: ${{ steps.detect-package-manager.outputs.runner }} next build
+        run: next build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
