@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getAllPhotographers } from "./lib/photographers";
+import { assetPath } from "./lib/asset-path";
 import styles from "./page.module.css";
 
 export default async function Home() {
@@ -11,7 +12,7 @@ export default async function Home() {
       <header className={styles.header}>
         <div>
           <Image
-            src="/Logo_Fisheye.png"
+            src={assetPath("/Logo_Fisheye.png")}
             alt="Logo Fisheye"
             width={200}
             height={50}
@@ -31,7 +32,7 @@ export default async function Home() {
             >
               <article className={styles.card}>
                 <Image
-                  src={`/assets/${photographer.portrait}`}
+                  src={assetPath(`/assets/${photographer.portrait}`)}
                   alt={photographer.name}
                   width={200}
                   height={200}

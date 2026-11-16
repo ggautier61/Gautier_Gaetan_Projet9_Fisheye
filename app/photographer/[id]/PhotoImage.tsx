@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Photo } from "./PhotoGallery";
+import { assetPath } from "../../lib/asset-path";
 
 interface PhotoImageProps {
   photo: {
@@ -17,7 +18,7 @@ function getRandomImage(sortedPhotos: Photo[], currentImage: string) {
         (item) =>  item.image !== currentImage && !item.image.endsWith("/null"))
         
     if (candidates.length == 0) {
-        return "/Logo_Fisheye.png"
+        return assetPath("/Logo_Fisheye.png")
     }
 
 
@@ -27,7 +28,7 @@ function getRandomImage(sortedPhotos: Photo[], currentImage: string) {
   };
 
 export default function PhotoImage({ photo, sortedPhotos }: PhotoImageProps) {
-  const [imageSrc, setImageSrc] = useState(photo.image);
+  const [imageSrc, setImageSrc] = useState(assetPath(photo.image));
 
   return (
     <Image

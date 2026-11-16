@@ -5,6 +5,7 @@ import { getPhotographerById, getAllPhotographers } from "../../lib/photographer
 import styles from "../../page.module.css";
 import PhotoGallery, { type Photo } from "./PhotoGallery";
 import ContactSection from "./ContactSection";
+import { assetPath } from "../../lib/asset-path";
 
 export const dynamicParams = false;
 
@@ -31,7 +32,7 @@ export default async function PhotographerPage(
   const photos: Photo[] = photographer.medias
     .map((media) => ({
       id: media.id,
-      image: `/assets/${media.image}`,
+      image: assetPath(`/assets/${media.image}`),
       title: media.title,
       likes: media.likes,
       date: media.date,
@@ -42,7 +43,7 @@ export default async function PhotographerPage(
       <header className={styles.header}>
         <Link href="/" aria-label="Retour à l'accueil">
           <Image
-            src="/Logo_Fisheye.png"
+            src={assetPath("/Logo_Fisheye.png")}
             alt="Logo Fisheye"
             width={200}
             height={50}
@@ -84,7 +85,7 @@ export default async function PhotographerPage(
 
           <div className={styles.profilePicture}>
             <Image
-              src={`/assets/${photographer.portrait}`}
+              src={assetPath(`/assets/${photographer.portrait}`)}
               alt={photographer.name}  
               width={200}
               height={200}            
