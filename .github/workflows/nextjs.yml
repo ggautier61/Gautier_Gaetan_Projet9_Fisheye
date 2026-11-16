@@ -78,7 +78,7 @@ jobs:
           find . -maxdepth 2 -name "next.config.*"
           cat next.config.ts
       - name: Build with Next.js
-        run: next build
+        run: npm next build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
