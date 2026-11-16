@@ -3,8 +3,6 @@ import Link from "next/link";
 import { getAllPhotographers } from "./lib/photographers";
 import styles from "./page.module.css";
 
-export const dynamic = "force-dynamic";
-
 export default async function Home() {
   const photographers = await getAllPhotographers();
 

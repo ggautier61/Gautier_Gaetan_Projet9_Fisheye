@@ -1,12 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPhotographerById } from "../../lib/photographers";
+import { getPhotographerById, getAllPhotographers } from "../../lib/photographers";
 import styles from "../../page.module.css";
 import PhotoGallery, { type Photo } from "./PhotoGallery";
 import ContactSection from "./ContactSection";
 
-export const dynamic = "force-dynamic";
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const photographers = await getAllPhotographers();
+
+  return photographers.map((photographer) => ({
+    id: String(photographer.id),
+  }));
+}
 
 export default async function PhotographerPage(
   props: PageProps<"/photographer/[id]">
