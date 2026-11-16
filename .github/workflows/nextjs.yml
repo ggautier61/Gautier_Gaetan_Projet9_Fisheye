@@ -53,10 +53,6 @@ jobs:
         with:
           node-version: "22.18.0"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
-      - name: Check Node version
-        run: |
-          node -v
-          node -p "process.features.typescript"
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Restore cache
@@ -71,12 +67,12 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: npm ci
-      - name: Debug Next configuration
-        run: |
-          pwd
-          ls -la
-          find . -maxdepth 2 -name "next.config.*"
-          cat next.config.ts
+      - name: Generate Prisma Client
+        run: npx prisma generate
+      - name: Apply database migrations
+        run: npx prisma migrate deploy
+      - name: Seed database
+        run: npx prisma db seed
       - name: Build with Next.js
         run: npm run build
       - name: Upload artifact

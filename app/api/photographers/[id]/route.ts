@@ -1,12 +1,25 @@
 import type { NextRequest } from "next/server";
-import { getPhotographerById } from "../../../lib/photographers";
+import {
+  getAllPhotographers,
+  getPhotographerById,
+} from "../../../lib/photographers";
+
+export const dynamic = "force-static";
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const photographers = await getAllPhotographers();
+
+  return photographers.map((photographer) => ({
+    id: String(photographer.id),
+  }));
+}
 
 export async function GET(
   request: NextRequest,
   { params }: RouteContext<"/api/photographers/[id]">
 ) {
   const { id } = await params;
-
   const photographerId = Number(id);
 
   if (!Number.isInteger(photographerId)) {
