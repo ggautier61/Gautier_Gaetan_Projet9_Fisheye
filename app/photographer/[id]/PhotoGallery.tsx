@@ -1,19 +1,15 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import Image from "next/image";
 import styles from "../../page.module.css";
 import LightboxModal from "./LightboxModal";
-import fs from "fs";
-import path from "path";
 import PhotoImage from "./PhotoImage";
 import InfoBoxLikes from "./InfoBoxLikes";
-import { assetPath } from "@/app/lib/asset-path";
 
 export type Photo = {
   id: number;
-  image: string;
-  video: string;
+  image: string | null;
+  video: string | null;
   title: string;
   likes: number;
   date: string;
@@ -31,7 +27,7 @@ export default function PhotoGallery({
   photos,
   price,
 }: {
-  photos: Promise<Photo>[];
+  photos: Photo[];
   price: number;
 }) {
   const [sortBy, setSortBy] = useState<SortBy>("popularite");
@@ -90,11 +86,6 @@ export default function PhotoGallery({
     (sum, photo) => sum + (likesById[photo.id] ?? photo.likes),
     0
   );
-
-
-
-  
-
 
 
   return (
@@ -180,7 +171,7 @@ export default function PhotoGallery({
 
                 {photo.video != null && photo.video != "" && (
                   <video
-                    src={await assetPath(photo.video)}
+                    src={photo.video}
                     className="h-full"
                     aria-label={photo.title}
                   />

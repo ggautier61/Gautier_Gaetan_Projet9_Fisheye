@@ -57,15 +57,17 @@
 }
 
 /* Photo */
-.photo-figure img {
+.photo-figure img,
+.photo-figure video {
   display: block;
   /* max-width: 100%; */
   /* max-height: 66vh; */
   /* min-height: 66vh; */
   width: 100%;
+  height: 100%;
   border-radius: 2px;
   object-fit: cover;
-  object-position: top center;  
+  object-position: center;
 }
 
 /* Légende */
@@ -75,6 +77,7 @@
   font-size: 24px;
   font-weight: 400;
   line-height: 100%;
+  padding-bottom: 5px;
 }
 
 .figure-panel-left {
@@ -98,17 +101,19 @@
     display: flex;
     flex-direction: column;
     flex: 1;
+    min-width: 0;
+    min-height: 0;
     row-gap: 20px;
     height: 100%;
-    width: 1242px;
     overflow: hidden;
 }
 
 .figure-panel-container {
-  height: 900px;
-    width: 1242px;
+    position: relative;
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 0;
     overflow: hidden;
-    border: 1px solid red;
 }
 
 /* Boutons de navigation */

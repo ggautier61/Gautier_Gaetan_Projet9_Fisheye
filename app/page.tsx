@@ -12,7 +12,7 @@ export default async function Home() {
       <header className={styles.header}>
         <div>
           <Image
-            src={await assetPath("/Logo_Fisheye.png")}
+            src={assetPath("/Logo_Fisheye.png")}
             alt="Logo Fisheye"
             width={200}
             height={50}

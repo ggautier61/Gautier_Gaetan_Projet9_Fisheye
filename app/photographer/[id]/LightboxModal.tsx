@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import type { Photo } from "./PhotoGallery";
+import { assetPath } from "../../lib/asset-path";
 import "./LightboxModal.css";
 
 type LightboxModalProps = {
@@ -16,16 +18,11 @@ export default function LightboxModal({
   currentIndex,
 }: LightboxModalProps) {
   const [index, setIndex] = useState(currentIndex);
-  const [fallback, setFallback] = useState<{ id: number; src: string } | null>(
-    null
-  );
   const safeIndex =
     photos.length > 0
       ? ((index % photos.length) + photos.length) % photos.length
       : 0;
   const photo = photos[safeIndex];
-  const imageSrc =
-    photo && fallback?.id === photo.id ? fallback.src : photo?.image ?? "";
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -62,20 +59,6 @@ export default function LightboxModal({
     setIndex((prev) => (prev + 1) % photos.length);
   }
 
-  function getRandomImage(sortedPhotos: Photo[], currentImage: string) {
-    const candidates = sortedPhotos.filter(
-        (item) =>  item.image !== currentImage && !item.image.endsWith("/null"))
-        
-    if (candidates.length == 0) {
-        return "/Logo_Fisheye.png"
-    }
-
-
-    return candidates[
-      Math.floor(Math.random() * candidates.length)
-    ].image;
-  };
-
   return (
     <div id="lightbox-modal">
       <div onClick={onClose} aria-hidden="true" />
@@ -95,14 +78,21 @@ export default function LightboxModal({
 
             <div className="figure-panel-image">
               <div className="figure-panel-container">
-                <img src={imageSrc} alt={photo.title}
-                    onError={() => {
-                          setFallback({
-                            id: photo.id,
-                            src: getRandomImage(photos, photo.image),
-                          });
-                        }} />
-
+                {photo.video != null && photo.video !== "" ? (
+                  <video
+                    src={photo.video}
+                    className="h-full"
+                    aria-label={photo.title}
+                  />
+                ) : (
+                  <Image
+                    src={photo.image ?? assetPath("/Logo_Fisheye.png")}
+                    alt={photo.title}
+                    fill
+                    sizes="(max-width: 480px) 100vw, 1242px"
+                    style={{ objectFit: "cover", objectPosition: "center" }}
+                  />
+                )}
               </div>
               <figcaption>{photo.title}</figcaption>
             </div>

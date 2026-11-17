@@ -77,6 +77,8 @@ jobs:
         run: npx prisma db seed
       - name: Build with Next.js
         run: npm run build
+        env:
+          NEXT_PUBLIC_BASE_PATH: /Gautier_Gaetan_Projet9_Fisheye
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
