@@ -29,10 +29,11 @@ export default async function PhotographerPage(
 
   if (!photographer) notFound();
 
-  const photos: Photo[] = photographer.medias
-    .map((media) => ({
+  const photos: Promise<Photo>[] =  photographer.medias
+    .map(async (media) => ({
       id: media.id,
-      image: assetPath(`/assets/${media.image}`),
+      image: await assetPath(`/assets/${media.image}`),
+      video: await assetPath(`/assets/${media.video}`),
       title: media.title,
       likes: media.likes,
       date: media.date,
@@ -43,7 +44,7 @@ export default async function PhotographerPage(
       <header className={styles.header}>
         <Link href="/" aria-label="Retour à l'accueil">
           <Image
-            src={assetPath("/Logo_Fisheye.png")}
+            src={await assetPath("/Logo_Fisheye.png")}
             alt="Logo Fisheye"
             width={200}
             height={50}
@@ -85,7 +86,7 @@ export default async function PhotographerPage(
 
           <div className={styles.profilePicture}>
             <Image
-              src={assetPath(`/assets/${photographer.portrait}`)}
+              src={await assetPath(`/assets/${photographer.portrait}`)}
               alt={photographer.name}  
               width={200}
               height={200}            

@@ -9,8 +9,7 @@ interface PhotoImageProps {
   photo: {
     image: string;
     title: string;
-  },
-  sortedPhotos: Photo[]
+  }
 }
 
 function getRandomImage(sortedPhotos: Photo[], currentImage: string) {
@@ -27,8 +26,8 @@ function getRandomImage(sortedPhotos: Photo[], currentImage: string) {
     ].image;
   };
 
-export default function PhotoImage({ photo, sortedPhotos }: PhotoImageProps) {
-  const [imageSrc, setImageSrc] = useState(assetPath(photo.image));
+export default async function PhotoImage({ photo }: PhotoImageProps) {
+  const [imageSrc, setImageSrc] = useState(await assetPath(photo.image));
 
   return (
     <Image
@@ -36,9 +35,9 @@ export default function PhotoImage({ photo, sortedPhotos }: PhotoImageProps) {
       alt={photo.title}
       fill
       sizes="(max-width: 768px) 100vw, 33vw"
-      onError={() => {
-        setImageSrc(getRandomImage(sortedPhotos, imageSrc));
-      }}
+      // onError={() => {
+      //   setImageSrc(getRandomImage(sortedPhotos, imageSrc));
+      // }}
     />
   );
 }

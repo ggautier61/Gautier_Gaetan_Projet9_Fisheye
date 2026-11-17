@@ -8,10 +8,12 @@ import fs from "fs";
 import path from "path";
 import PhotoImage from "./PhotoImage";
 import InfoBoxLikes from "./InfoBoxLikes";
+import { assetPath } from "@/app/lib/asset-path";
 
 export type Photo = {
   id: number;
   image: string;
+  video: string;
   title: string;
   likes: number;
   date: string;
@@ -29,7 +31,7 @@ export default function PhotoGallery({
   photos,
   price,
 }: {
-  photos: Photo[];
+  photos: Promise<Photo>[];
   price: number;
 }) {
   const [sortBy, setSortBy] = useState<SortBy>("popularite");
@@ -147,6 +149,7 @@ export default function PhotoGallery({
         </div>
       </section>
 
+
       {/* GALERIE */}
       <section className={styles.galleryContainer}>
         <div className={styles.gallery}>
@@ -171,7 +174,19 @@ export default function PhotoGallery({
                   }
                 }}
               >
-                <PhotoImage photo={photo} sortedPhotos={sortedPhotos}/>
+                {photo.image != null && photo.image != "" && (
+                  <PhotoImage photo={photo} />
+                )}
+
+                {photo.video != null && photo.video != "" && (
+                  <video
+                    src={await assetPath(photo.video)}
+                    className="h-full"
+                    aria-label={photo.title}
+                  />
+
+                )}
+                
                 
               </div>
 
